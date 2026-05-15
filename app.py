@@ -4,6 +4,7 @@ from tkinter import ttk
 from tabs.materials_tab import create_materials_tab
 from tabs.products_tab import create_products_tab
 from tabs.reports_tab import create_reports_tab
+from tabs.components_tab import create_components_tab
 
 
 root = tk.Tk()
@@ -16,6 +17,7 @@ notebook.pack(fill="both", expand=True)
 
 
 create_materials_tab(notebook)
+create_components_tab(notebook)
 create_products_tab(notebook)
 create_reports_tab(notebook)
 
