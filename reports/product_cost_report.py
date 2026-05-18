@@ -6,7 +6,7 @@ def product_cost_report(tree):
     for row in tree.get_children():
         tree.delete(row)
 
-    tree["columns"] = ("Изделие", "Кол-во компл.", "Себестоимость", "Цена", "Прибыль")
+    tree["columns"] = ("Изделие", "Кол-во компл.", "Себестоимость", "Цена")
     tree["show"] = "headings"
     for col in tree["columns"]:
         tree.heading(col, text=col)
@@ -14,7 +14,6 @@ def product_cost_report(tree):
     tree.column("Кол-во компл.", width=100)
     tree.column("Себестоимость", width=150)
     tree.column("Цена", width=120)
-    tree.column("Прибыль", width=150)
 
     query = """
         SELECT product_name, components_count, total_cost, selling_price, profit
@@ -30,12 +29,10 @@ def product_cost_report(tree):
             messagebox.showinfo("Нет данных", "Нет изделий с заполненным составом.")
             return
         total_cost = 0
-        total_profit = 0
         for row in rows:
             tree.insert("", tk.END, values=row)
             total_cost += float(row[2]) if row[2] else 0
-            total_profit += float(row[4]) if row[4] else 0
-        tree.insert("", tk.END, values=("ИТОГО", "", round(total_cost,2), "", round(total_profit,2)))
+        tree.insert("", tk.END, values=("ИТОГО", "", round(total_cost,2), ""))
     except Exception as e:
         messagebox.showerror("Ошибка", str(e))
     finally:
